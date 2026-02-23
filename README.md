@@ -106,7 +106,42 @@ Python이 설치된 환경이라면 `pip`로 쉽게 설치할 수 있습니다.
    }
    ```
 
-### 방법 3: 소스 코드 직접 실행 (개발용)
+### 방법 3: Claude Code (CLI) 설정
+터미널 기반 AI 어시스턴트인 Claude Code를 사용하는 경우, Python 환경이나 `uv`를 통해 직접 M되어 설정할 수 있습니다.
+
+**설정 방법 A: CLI 명령어 사용**
+Claude Code 내에서 `/mcp add` 명령을 사용하여 서버를 추가합니다. `uvx`를 권장합니다.
+
+```bash
+# Claude Code를 실행 중인 터미널 프롬프트에서:
+
+# 1. uv를 사용하는 경우 (가장 강력하고 빠른 방법)
+> /mcp add uvx --from dart-mcp-kor dart-mcp
+
+# 2. Python 환경에 pip로 설치 후 사용하는 경우
+> /mcp add python -m dart_mcp
+```
+환경 변수는 Claude Code 실행 전에 터미널에서 `export DART_API_KEY="발급받은_API_키_입력"`으로 설정해야 합니다.
+
+**설정 방법 B: `claude.json` 파일 사용 (권장)**
+프로젝트 루트 디렉토리나 글로벌 설정 파일인 `claude.json`을 직접 수정하여 서버와 환경 변수를 한 번에 설정할 수 있습니다.
+ 
+```json
+{
+  "mcpServers": {
+    "dart-mcp": {
+      "command": "uvx",
+      "args": ["--from", "dart-mcp-kor", "dart-mcp"],
+      "env": {
+        "DART_API_KEY": "발급받은_API_키_입력"
+      }
+    }
+  }
+}
+```
+※ `uvx` 대신 `python`을 사용할 경우 `command`를 `"python"`, `args`를 `["-m", "dart_mcp"]`로 지정하세요.
+
+### 방법 4: 소스 코드 직접 실행 (개발용)
 직접 코드를 수정하거나 기여하고 싶은 경우 사용합니다. (`uv` 또는 `python` 필요)
 1. 저장소를 클론하거나 다운로드합니다.
 2. 프로젝트 폴더로 이동하여 의존성을 설치하고 실행합니다.
