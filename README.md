@@ -89,7 +89,7 @@ Python이나 기타 도구 설치가 필요 없습니다.
 Python이 설치된 환경이라면 `pip`로 쉽게 설치할 수 있습니다.
 1. 터미널에서 설치:
    ```bash
-   pip install dart-mcp
+   pip install dart-mcp-kor
    ```
 2. **MCP 클라이언트 설정 추가**
    - 설정 파일을 여는 방법은 **[방법 1]**의 **A(Claude Desktop)** 또는 **B(VS Code)** 설명을 참고하세요.

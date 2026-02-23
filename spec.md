@@ -69,4 +69,15 @@ pyinstaller --name dart-mcp --onefile --hidden-import=uvicorn --hidden-import=fa
 2. `pyproject.toml` 업데이트.
 3. 로컬 빌드 및 테스트 (`pip install .`).
 4. PyInstaller 빌드 테스트 (`pyinstaller ...`).
-5. GitHub Actions 워크플로우 추가 (선택 사항: 자동 배포용).
+5. GitHub Actions 워크플로우 업데이트: 기존 EXE 릴리즈에 추가로 OIDC 기반 PyPI 자동 배포(`pypa/gh-action-pypi-publish`) 적용 (완료).
+
+## PyPI 자동 배포 (Trusted Publishing) 설정 가이드 (프로젝트 소유자용)
+GitHub Action을 통한 PyPI 배포가 작동하려면 PyPI 사이트에서 아래 설정을 진행해야 합니다.
+1. [PyPI](https://pypi.org/)에 로그인합니다.
+2. Account settings -> Publishing 항목으로 이동합니다.
+3. "Add a pending publisher"를 클릭하여 새 OIDC publisher를 추가합니다.
+   - **PyPI Project Name**: `dart-mcp`
+   - **Owner**: `acidburn44`
+   - **Repository name**: `dart-mcp`
+   - **Workflow name**: `release.yml`
+4. 설정을 저장하면, 이후 `v*` 태그 푸시 시 자동으로 PyPI에 휠(wheel)과 소스 배포판(sdist)이 업로드됩니다.

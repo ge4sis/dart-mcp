@@ -1,4 +1,4 @@
-name: Build and Release EXE
+name: Build and Release EXE and PyPI
 
 on:
   push:
@@ -7,9 +7,10 @@ on:
 
 permissions:
   contents: write
+  id-token: write  # Required for PyPI Trusted Publishing
 
 jobs:
-  build-and-release:
+  build-and-release-exe:
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -36,3 +37,26 @@ jobs:
         with:
           files: dist/dart-mcp.exe
           generate_release_notes: true
+
+  publish-to-pypi:
+    needs: build-and-release-exe  # Optional: ensure EXE builds first
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install build dependencies
+        run: pip install build
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@release/v1
+        # No password needed, uses OIDC (id-token permission)
+
